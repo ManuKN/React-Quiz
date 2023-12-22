@@ -4,8 +4,8 @@
   --color-medium: #ced4da;
   --color-light: #f1f3f5;
 
-  --color-theme: #1098ad;
-  --color-accent: #ffa94d;
+  --color-theme: #25e01f;
+  --color-accent: #f0198f;
 }
 
 @import url("https://fonts.googleapis.com/css2?family=Codystar&display=swap");
@@ -151,10 +151,11 @@ progress {
   flex-direction: column;
   gap: 1.2rem;
   margin-bottom: 3.2rem;
+  align-items: center;
 }
 
 .btn-option {
-  width: 100%;
+  width: 35%;
   text-align: left;
 }
 
