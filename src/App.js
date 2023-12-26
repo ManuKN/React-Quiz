@@ -22,9 +22,12 @@ function reducer(state , action){
       case "start":
         return{...state ,status: "active"}
       case "NewAnswer":
-      
         const question = state.question.at(state.index)
         return{...state , answer : action.payload , points:action.payload === question.correctOption ? state.points + question.points : state.points }  
+      case "NextQuestion":
+        return {...state , index: state.index + 1 , answer:null}  
+      case "Previous":
+        return {...state , index : state.index -1}  
         default :  
         throw new Error("Unknown Action")
     }
@@ -32,8 +35,9 @@ function reducer(state , action){
 
 function App() {
 
-const[{question , status, index ,answer} , dispatch] = useReducer(reducer , initialState)
+const[{question , status, index ,answer , points} , dispatch] = useReducer(reducer , initialState)
 const Numquestions = question.length
+const MaxPoints = question.reduce((prev , cur) => prev + cur.points,0)
 useEffect(function(){
   fetch("http://localhost:8000/questions")
   .then(res => res.json())
@@ -44,9 +48,7 @@ useEffect(function(){
   return (
     <div className="App">
     <Header />
-    <Main  status={status} NumQuestions={Numquestions} dispatch={dispatch} question={question[index]} answer={answer}/>
-      {/* {status === "loading" && <Loader />}
-      {status === "Error" && <Error />} */}
+    <Main  status={status} NumQuestions={Numquestions} dispatch={dispatch} question={question[index]} answer={answer} index={index} points={points} MaxPoints={MaxPoints}/>
     </div>
   );
 }

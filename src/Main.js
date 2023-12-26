@@ -3,16 +3,26 @@ import Loader from './Loader'
 import Error from './Error'
 import StartScreen from './StartScreen'
 import Question from './Question'
-import Options from './Options'
+import NextQuestion from './NextQuestion'
+import PrevQuestion from './PrevQuestion'
+import Progress  from './Progress'
+import FinishScreen  from './FinishScreen'
 
-function Main({status , NumQuestions , dispatch , question ,answer}) {
+
+function Main({status , NumQuestions , dispatch , question ,answer , index ,points  , MaxPoints}) {
   return (
     <div>
         {status === "loading" && <Loader/>}
         {status === "Error" && <Error />}
         {status === "ready" && <StartScreen NumQuestions={NumQuestions} dispatch={dispatch} />}
-        {status === "active" && <Question questions={question} answer={answer} dispatch={dispatch}/>}
-        
+        {status === "active" && 
+        <>
+        <Progress index={index} NumQuestions={NumQuestions} points={points} Maxpoints={MaxPoints}/>
+        <Question questions={question} answer={answer} dispatch={dispatch}/> 
+         <PrevQuestion dispatch={dispatch} answer={answer} questions={question}/>
+         <NextQuestion dispatch={dispatch} answer={answer} index={index} NumQuestions={NumQuestions}/>
+        </>}
+        {status === "Finished" && <FinishScreen points={points} Maxpoints={MaxPoints}/>}
     </div>
   )
 }
