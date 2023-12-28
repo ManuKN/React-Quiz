@@ -6,7 +6,7 @@ function Options({ questions, answer, dispatch }) {
     const handleOptionClick = (index) => {
         dispatch({ type: "NewAnswer", payload: index });
     };
-
+  
     return (
         <div className='options'>
             {questions.options.map((option, index) => (

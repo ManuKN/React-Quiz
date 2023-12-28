@@ -10,7 +10,8 @@ const initialState = {
   status:"loading",
   index:0,
   answer:null ,
-  points :0
+  points :0,
+  highscore:0
 }
 
 function reducer(state , action){
@@ -21,6 +22,8 @@ function reducer(state , action){
         return{...state , status:"Error"}
       case "start":
         return{...state ,status: "active"}
+      case "Finish":
+        return{...state , status:"Finish" , highscore: state.points > state.highscore ? state.points : state.highscore}  
       case "NewAnswer":
         const question = state.question.at(state.index)
         return{...state , answer : action.payload , points:action.payload === question.correctOption ? state.points + question.points : state.points }  
@@ -35,7 +38,7 @@ function reducer(state , action){
 
 function App() {
 
-const[{question , status, index ,answer , points} , dispatch] = useReducer(reducer , initialState)
+const[{question , status, index ,answer , points , highscore} , dispatch] = useReducer(reducer , initialState)
 const Numquestions = question.length
 const MaxPoints = question.reduce((prev , cur) => prev + cur.points,0)
 useEffect(function(){
@@ -48,7 +51,7 @@ useEffect(function(){
   return (
     <div className="App">
     <Header />
-    <Main  status={status} NumQuestions={Numquestions} dispatch={dispatch} question={question[index]} answer={answer} index={index} points={points} MaxPoints={MaxPoints}/>
+    <Main  status={status} NumQuestions={Numquestions} dispatch={dispatch} question={question[index]} answer={answer} index={index} points={points} MaxPoints={MaxPoints} highscore={highscore}/>
     </div>
   );
 }

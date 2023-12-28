@@ -9,7 +9,7 @@ import Progress  from './Progress'
 import FinishScreen  from './FinishScreen'
 
 
-function Main({status , NumQuestions , dispatch , question ,answer , index ,points  , MaxPoints}) {
+function Main({status , NumQuestions , dispatch , question ,answer , index ,points  , MaxPoints , highscore}) {
   return (
     <div>
         {status === "loading" && <Loader/>}
@@ -19,10 +19,10 @@ function Main({status , NumQuestions , dispatch , question ,answer , index ,poin
         <>
         <Progress index={index} NumQuestions={NumQuestions} points={points} Maxpoints={MaxPoints}/>
         <Question questions={question} answer={answer} dispatch={dispatch}/> 
-         <PrevQuestion dispatch={dispatch} answer={answer} questions={question}/>
+         <PrevQuestion dispatch={dispatch} answer={answer} questions={question} index={index}/>
          <NextQuestion dispatch={dispatch} answer={answer} index={index} NumQuestions={NumQuestions}/>
         </>}
-        {status === "Finished" && <FinishScreen points={points} Maxpoints={MaxPoints}/>}
+        {status === "Finish" && <FinishScreen points={points} Maxpoints={MaxPoints} highscore={highscore}/>}
     </div>
   )
 }
