@@ -23,7 +23,9 @@ function reducer(state , action){
       case "start":
         return{...state ,status: "active"}
       case "Finish":
-        return{...state , status:"Finish" , highscore: state.points > state.highscore ? state.points : state.highscore}  
+        return{...state , status:"Finish" , highscore: state.points > state.highscore ? state.points : state.highscore} 
+      case "Restart":
+        return{...state , status:"Restart" , answer:null , index:0}   
       case "NewAnswer":
         const question = state.question.at(state.index)
         return{...state , answer : action.payload , points:action.payload === question.correctOption ? state.points + question.points : state.points }  

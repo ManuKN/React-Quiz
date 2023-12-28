@@ -7,6 +7,7 @@ import NextQuestion from './NextQuestion'
 import PrevQuestion from './PrevQuestion'
 import Progress  from './Progress'
 import FinishScreen  from './FinishScreen'
+import Restart from './Restart'
 
 
 function Main({status , NumQuestions , dispatch , question ,answer , index ,points  , MaxPoints , highscore}) {
@@ -22,7 +23,8 @@ function Main({status , NumQuestions , dispatch , question ,answer , index ,poin
          <PrevQuestion dispatch={dispatch} answer={answer} questions={question} index={index}/>
          <NextQuestion dispatch={dispatch} answer={answer} index={index} NumQuestions={NumQuestions}/>
         </>}
-        {status === "Finish" && <FinishScreen points={points} Maxpoints={MaxPoints} highscore={highscore}/>}
+        {status === "Finish" && <FinishScreen points={points} Maxpoints={MaxPoints} highscore={highscore} dispatch={dispatch}/>}
+        {status === "Restart" && <StartScreen NumQuestions={NumQuestions} dispatch={dispatch} />}
     </div>
   )
 }
